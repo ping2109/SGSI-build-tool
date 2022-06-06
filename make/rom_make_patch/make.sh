@@ -1,11 +1,9 @@
 #!/bin/bash
 
-LOCALDIR=`cd "$( dirname ${BASH_SOURCE[0]} )" && pwd`
+LOCALDIR=`cd "$( dirname $0 )" && pwd`
 cd $LOCALDIR
-source $LOCALDIR/../../bin.sh
-source $LOCALDIR/../../language_helper.sh
 
-configdir="$TARGETDIR/config"
-systemdir="$TARGETDIR/system/system"
+systemdir="../../out/system/system"
+configdir="../../out/config"
 
-echo "$FIXING_ROM"
+echo "rom修补处理中"

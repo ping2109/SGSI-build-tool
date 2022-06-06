@@ -1,2 +1,6 @@
 Generic
 Pixel
+MIUI
+Flyme
+OxygenOS
+ColorOS
