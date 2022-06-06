@@ -146,15 +146,15 @@ function normal() {
   build_modify() { 
     # Enable auto-adapting dpi
     sed -i 's/ro.sf.lcd/#&/' $systemdir/build.prop
-    sed -i 's/ro.sf.lcd/#&/' $systemdir/product/etc/build.prop
-    sed -i 's/ro.sf.lcd/#&/' $systemdir/system_ext/etc/build.prop    
+    sed -i 's/ro.sf.lcd/#&/' $systemdir/product/build.prop
+    sed -i 's/ro.sf.lcd/#&/' $systemdir/system_ext/build.prop    
   
     # Cleanup properties
     sed -i '/vendor.display/d' $systemdir/build.prop
     sed -i '/vendor.perf/d' $systemdir/build.prop
     sed -i '/debug.sf/d' $systemdir/build.prop
-    sed -i '/debug.sf/d' $systemdir/product/etc/build.prop
-    sed -i '/ro.sys.sdcardfs/d' $systemdir/product/etc/build.prop
+    sed -i '/debug.sf/d' $systemdir/product/build.prop
+    sed -i '/ro.sys.sdcardfs/d' $systemdir/product/build.prop
     sed -i '/persist.sar.mode/d' $systemdir/build.prop
     sed -i '/opengles.version/d' $systemdir/build.prop
     sed -i '/actionable_compatible_property.enabled/d' $systemdir/build.prop
@@ -165,17 +165,17 @@ function normal() {
     # Add common properties
     sed -i '/system_root_image/d' $systemdir/build.prop
     sed -i '/ro.control_privapp_permissions/d' $systemdir/build.prop
-    sed -i '/ro.control_privapp_permissions/d' $systemdir/product/etc/build.prop
-    sed -i '/ro.control_privapp_permissions/d' $systemdir/system_ext/etc/build.prop  
+    sed -i '/ro.control_privapp_permissions/d' $systemdir/product/build.prop
+    sed -i '/ro.control_privapp_permissions/d' $systemdir/system_ext/build.prop  
     cat ./make/add_build/system_prop >> $systemdir/build.prop
-    cat ./make/add_build/product_prop >> $systemdir/product/etc/build.prop
-    cat ./make/add_build/system_ext_prop >> $systemdir/system_ext/etc/build.prop
+    cat ./make/add_build/product_prop >> $systemdir/product/build.prop
+    cat ./make/add_build/system_ext_prop >> $systemdir/system_ext/build.prop
 
     # Disable bpfloader
     rm -rf $systemdir/etc/init/bpfloader.rc
-    echo ""  >> $systemdir/product/etc/build.prop
-    echo "# Disable bpfloader" >> $systemdir/product/etc/build.prop
-    echo "bpf.progs_loaded=1" >> $systemdir/product/etc/build.prop
+    echo ""  >> $systemdir/product/build.prop
+    echo "# Disable bpfloader" >> $systemdir/product/build.prop
+    echo "bpf.progs_loaded=1" >> $systemdir/product/build.prop
 
     # Enable HW Mainkeys
     mainkeys() {
@@ -191,11 +191,11 @@ function normal() {
 
     # Hack GSI property read order
     sed -i '/ro.product.property\_source\_order\=/d' $systemdir/build.prop
-    sed -i '/ro.product.property\_source\_order\=/d' $systemdir/system_ext/etc/build.prop
-    sed -i '/ro.product.property\_source\_order\=/d' $systemdir/product/etc/build.prop
-    echo "" >> $systemdir/product/etc/build.prop
-    echo "# Property Read Order" >> $systemdir/product/etc/build.prop
-    echo "ro.product.property_source_order=product,system,system_ext,vendor,odm" >> $systemdir/product/etc/build.prop
+    sed -i '/ro.product.property\_source\_order\=/d' $systemdir/system_ext/build.prop
+    sed -i '/ro.product.property\_source\_order\=/d' $systemdir/product/build.prop
+    echo "" >> $systemdir/product/build.prop
+    echo "# Property Read Order" >> $systemdir/product/build.prop
+    echo "ro.product.property_source_order=product,system,system_ext,vendor,odm" >> $systemdir/product/build.prop
 
     # Fix Device Properties for all roms
     echo "$DEVICE_PROP_FIX_STARTED"
@@ -225,20 +225,20 @@ function normal() {
     
     # Partial Devices Sim fix
     sed -i '/persist.sys.fflag.override.settings\_provider\_model\=/d' $systemdir/build.prop
-    sed -i '/persist.sys.fflag.override.settings\_provider\_model\=/d' $systemdir/system_ext/etc/build.prop
-    sed -i '/persist.sys.fflag.override.settings\_provider\_model\=/d' $systemdir/product/etc/build.prop
-    echo "" >> $systemdir/product/etc/build.prop
-    echo "# Partial ROM sim fix" >> $systemdir/product/etc/build.prop
-    echo "persist.sys.fflag.override.settings_provider_model=false" >> $systemdir/product/etc/build.prop
+    sed -i '/persist.sys.fflag.override.settings\_provider\_model\=/d' $systemdir/system_ext/build.prop
+    sed -i '/persist.sys.fflag.override.settings\_provider\_model\=/d' $systemdir/product/build.prop
+    echo "" >> $systemdir/product/build.prop
+    echo "# Partial ROM sim fix" >> $systemdir/product/build.prop
+    echo "persist.sys.fflag.override.settings_provider_model=false" >> $systemdir/product/build.prop
     
     # Clean devices custom properites
     clean_custom_prop() {
       ./clean_properites.sh "$systemdir/build.prop" "/system.prop" > "$systemdir/build.prop.tmp"
       mv -f "$systemdir/build.prop.tmp" "$systemdir/build.prop"
-      ./clean_properites.sh "$systemdir/system_ext/etc/build.prop" "/system_ext.prop" > "$systemdir/system_ext/etc/build.prop.tmp"
-      mv -f "$systemdir/system_ext/etc/build.prop.tmp" "$systemdir/system_ext/etc/build.prop"
-      ./clean_properites.sh "$systemdir/product/etc/build.prop" "/product.prop" > "$systemdir/product/etc/build.prop.tmp"
-      mv -f "$systemdir/product/etc/build.prop.tmp" "$systemdir/product/etc/build.prop"
+      ./clean_properites.sh "$systemdir/system_ext/build.prop" "/system_ext.prop" > "$systemdir/system_ext/build.prop.tmp"
+      mv -f "$systemdir/system_ext/build.prop.tmp" "$systemdir/system_ext/build.prop"
+      ./clean_properites.sh "$systemdir/product/build.prop" "/product.prop" > "$systemdir/product/build.prop.tmp"
+      mv -f "$systemdir/product/build.prop.tmp" "$systemdir/product/build.prop"
     }
 
     # Default clean custom prop
@@ -270,16 +270,16 @@ function normal() {
   sed -i 's/ro.debuggable=0/ro.debuggable=1/g' $systemdir/build.prop
   sed -i 's/ro.adb.secure=1/ro.adb.secure=0/g' $systemdir/build.prop
   
-  sed -i 's/persist.sys.usb.config=none/persist.sys.usb.config=adb/g' $systemdir/system_ext/etc/build.prop
-  sed -i 's/ro.debuggable=0/ro.debuggable=1/g' $systemdir/system_ext/etc/build.prop
-  sed -i 's/ro.adb.secure=1/ro.adb.secure=0/g' $systemdir/system_ext/etc/build.prop
+  sed -i 's/persist.sys.usb.config=none/persist.sys.usb.config=adb/g' $systemdir/system_ext/build.prop
+  sed -i 's/ro.debuggable=0/ro.debuggable=1/g' $systemdir/system_ext/build.prop
+  sed -i 's/ro.adb.secure=1/ro.adb.secure=0/g' $systemdir/system_ext/build.prop
 
-  sed -i 's/persist.sys.usb.config=none/persist.sys.usb.config=adb/g' $systemdir/product/etc/build.prop
-  sed -i 's/ro.debuggable=0/ro.debuggable=1/g' $systemdir/product/etc/build.prop
-  sed -i 's/ro.adb.secure=1/ro.adb.secure=0/g' $systemdir/product/etc/build.prop
-  echo "" >> $systemdir/product/etc/build.prop
-  echo "# force debug" >> $systemdir/product/etc/build.prop
-  echo "ro.force.debuggable=1" >> $systemdir/product/etc/build.prop
+  sed -i 's/persist.sys.usb.config=none/persist.sys.usb.config=adb/g' $systemdir/product/build.prop
+  sed -i 's/ro.debuggable=0/ro.debuggable=1/g' $systemdir/product/build.prop
+  sed -i 's/ro.adb.secure=1/ro.adb.secure=0/g' $systemdir/product/build.prop
+  echo "" >> $systemdir/product/build.prop
+  echo "# force debug" >> $systemdir/product/build.prop
+  echo "ro.force.debuggable=1" >> $systemdir/product/build.prop
 
 
   # Remove qti_permissions
