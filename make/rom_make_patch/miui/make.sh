@@ -8,6 +8,9 @@ systemdir="../../../out/system/system"
 configdir="../../../out/config"
 vendordir="../../../out/vendor"
 
+# Custom overlay
+cp -frpn $LOCALDIR/product/overlay* $systemdir/product/overlay
+
 # 清除MIUI供应商分区挂载
 rm -f $systemrootdir/init.miui.cust.rc
 
