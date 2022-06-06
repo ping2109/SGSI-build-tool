@@ -178,6 +178,18 @@ function normal() {
       echo "修复完成"
     fi
 
+    # Custom Build Number
+    if [[ $(grep "ro.build.display.id" $systemdir/build.prop) ]]; then
+        displayid="ro.build.display.id"
+    elif [[ $(grep "ro.system.build.id" $systemdir/build.prop) ]]; then
+        displayid="ro.system.build.id"
+    elif [[ $(grep "ro.build.id" $systemdir/build.prop) ]]; then
+        displayid="ro.build.id"
+    fi
+    displayid2=$(echo "$displayid" | sed 's/\./\\./g')
+    bdisplay=$(grep "$displayid" $systemdir/build.prop | sed 's/\./\\./g; s:/:\\/:g; s/\,/\\,/g; s/\ /\\ /g')
+    sed -i "s/$bdisplay/$displayid2=t\.me\/NevaGSI/" $systemdir/build.prop
+
     # 为所有rom改用自适应apex更新支持状态
     sed -i '/ro.apex.updatable/d' $systemdir/build.prop
     sed -i '/ro.apex.updatable/d' $systemdir/product/build.prop
