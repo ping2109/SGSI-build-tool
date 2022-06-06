@@ -112,3 +112,13 @@ if [ $os_type = "ColorOS" ];then
   echo "$DEBLOATING_STR"
   $debloat_folder/color.sh "$systemdir" > /dev/null 2>&1
 fi
+
+# funtouch
+if [ $os_type = "FuntouchOS" ];then
+  ./add_build.sh > /dev/null 2>&1
+  $vintf_folder/vivo/add_vintf.sh > /dev/null 2>&1
+  # Fixing ROM Features
+  $rom_folder/vivo/make.sh > /dev/null 2>&1
+  echo "$DEBLOATING_STR"
+  $debloat_folder/vivo.sh "$systemdir" > /dev/null 2>&1
+fi

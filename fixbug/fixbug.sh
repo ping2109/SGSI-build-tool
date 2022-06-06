@@ -23,6 +23,8 @@ Flyme
 H2OS
 
 Color
+
+FuntouchOS
 --------------------
 "
 case "$os_type" in
