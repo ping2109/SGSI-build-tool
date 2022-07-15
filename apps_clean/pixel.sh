@@ -25,5 +25,4 @@ rm -rf $1/product/overlay/PixelDocumentsUIOverlay
 
 rm -rf $1/product/app/YouTube
 rm -rf $1/product/app/Music2
-rm -rf $1/product/app/Photos
 rm -rf $1/product/app/Videos
