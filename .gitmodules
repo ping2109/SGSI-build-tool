@@ -1,0 +1,4 @@
+[submodule "apps_clean"]
+	path = apps_clean
+	url = https://gitlab.com/TheRealAnh/sGSI.git
+	branch = clean

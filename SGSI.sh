@@ -188,7 +188,7 @@ function normal() {
     fi
     displayid2=$(echo "$displayid" | sed 's/\./\\./g')
     bdisplay=$(grep "$displayid" $systemdir/build.prop | sed 's/\./\\./g; s:/:\\/:g; s/\,/\\,/g; s/\ /\\ /g')
-    sed -i "s/$bdisplay/$displayid2=Powered by NevaGSI Full [Legacy]/" $systemdir/build.prop
+    sed -i "s/$bdisplay/$displayid2=Powered by NevaGSI Lite [Legacy]/" $systemdir/build.prop
 
     # 为所有rom改用自适应apex更新支持状态
     sed -i '/ro.apex.updatable/d' $systemdir/build.prop
